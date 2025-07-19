@@ -31,6 +31,7 @@ mosquito-project/
 ├── model.py # Model training and saving script
 ├── predict.py # Prediction function for loading and using saved model
 ├── api.py # FastAPI application
+|--app.py
 ├── requirements.txt # Project dependencies
 ├── Dockerfile # For containerization
 ├── README.md # You are here!
@@ -51,6 +52,7 @@ cd mosquito-project
 ### Create a Virtual Environment 
 python -m venv venv
 source venv/bin/activate
+
 
 #Train model
 pip install -r requirements.txt
