@@ -8,6 +8,7 @@ import os
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from PIL import Image
 
 # Define paths
 train_dir = "mosquito_dataset_split/train"
@@ -68,13 +69,20 @@ def train_and_save_model():
     print(f"Model saved to: {MODEL_SAVE_PATH}")
 
 # Predict a single image using the trained model
+from PIL import Image
+
 def predict_image(img_path):
     if not os.path.exists(MODEL_SAVE_PATH):
         raise ValueError("Model not found. Please train the model first.")
 
     model = load_model(MODEL_SAVE_PATH)
 
-    img = image.load_img(img_path, target_size=IMG_SIZE)
+    try:
+        img = Image.open(img_path).convert("RGB")
+    except Exception as e:
+        raise ValueError(f"Unable to open image. Check the file. Details: {e}")
+
+    img = img.resize(IMG_SIZE)
     img_array = image.img_to_array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
@@ -86,6 +94,7 @@ def predict_image(img_path):
         "predicted_class": CLASS_NAMES[class_idx],
         "confidence": round(confidence, 4)
     }
+
 # Entry point
 if __name__ == "__main__":
     train_and_save_model()

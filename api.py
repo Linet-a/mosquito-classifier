@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from model import predict_image
-import os, shutil
+import os
+import shutil
 
 app = FastAPI()
 
@@ -14,5 +15,5 @@ async def predict(file: UploadFile = File(...)):
 
     result = predict_image(temp_path)
 
-    os.remove(temp_path)  # Clean up
+    os.remove(temp_path)
     return result
