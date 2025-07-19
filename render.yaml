@@ -1,7 +1,5 @@
 services:
   - type: web
     name: mosquito-classifier
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run app.py --server.enableCORS false
+    env: docker
     plan: free
