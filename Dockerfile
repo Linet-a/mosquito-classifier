@@ -1,20 +1,20 @@
-# Use official TensorFlow image with Python 3.10 and pip preinstalled
+# Use official TensorFlow image (2.11.0) with Python and pip
 FROM tensorflow/tensorflow:2.11.0
 
-# Set working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Install other dependencies
+#Copy dependency file first to leverage caching
 COPY requirements.txt .
+
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your application code
+# Copy rest of the application code
 COPY . .
 
-# Expose Streamlit's port
+# Expose Streamlit's default port (for local use; Render uses 8080 internally)
 EXPOSE 8501
 
-# Start the Streamlit app
-CMD ["streamlit", "run", "app.py", "--server.enableCORS=false", "--server.port=8501"]
-
-FROM tensorflow/tensorflow:2.13.0
+# Run the Streamlit app (set correct port + disable CORS)
+CMD ["streamlit", "run", "app.py", "--server.enableCORS=false", "--server.port=8080", "--server.address=0.0.0.0"]
