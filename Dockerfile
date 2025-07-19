@@ -1,23 +1,25 @@
-# Use an official Python 3.10 base image
+# Use Python 3.10 base image
 FROM python:3.10-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Set work directory
+# Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Install system dependencies required by TensorFlow
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 libsm6 libxext6 libxrender1 libhdf5-dev libatlas-base-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app files
+# Copy application code
 COPY . .
 
-# Streamlit uses port 8501 by default
+# Expose Streamlit's default port
 EXPOSE 8501
 
-# Start Streamlit app
-CMD ["streamlit", "run", "app.py", "--server.enableCORS=false"]
+# Run the Streamlit app
+CMD ["streamlit", "run", "app.py", "--server.enableCORS=false", "--server.port=8501"]
+
