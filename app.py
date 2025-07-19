@@ -6,7 +6,7 @@ from model import predict_image
 st.set_page_config(page_title="Mosquito Classifier", layout="centered")
 
 # --- Custom Styling ---
-sst.markdown(
+st.markdown(
     """
     <style>
     .title {
