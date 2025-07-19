@@ -17,4 +17,4 @@ EXPOSE 8501
 # Start the Streamlit app
 CMD ["streamlit", "run", "app.py", "--server.enableCORS=false", "--server.port=8501"]
 
-
+FROM tensorflow/tensorflow:2.13.0
