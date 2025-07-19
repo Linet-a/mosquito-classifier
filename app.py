@@ -6,7 +6,7 @@ from model import predict_image
 st.set_page_config(page_title="Mosquito Classifier", layout="centered")
 
 # --- Custom Styling ---
-st.markdown(
+sst.markdown(
     """
     <style>
     .title {
@@ -15,15 +15,40 @@ st.markdown(
         background: -webkit-linear-gradient(90deg, #FF512F, #DD2476);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-bottom: 20px;
     }
+
     .confidence {
         font-size: 24px;
         font-weight: 600;
+        color: #444;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .shadow-box {
+        background-color: #ffffff;
+        padding: 25px;
+        margin-top: 30px;
+        border-radius: 18px;
+        border: 2px solid #e2e2e2;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # --- App Title ---
 st.markdown('<div class="title">🦟 Mosquito Species Classifier</div>', unsafe_allow_html=True)
